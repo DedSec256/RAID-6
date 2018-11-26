@@ -1,4 +1,4 @@
-﻿; -------------------------------------------------------------------------------------	;
+; -------------------------------------------------------------------------------------	;
 ;	Лабораторная работа №1 по курсу Программирование на языке ассемблера				;
 ;	Вариант №3.1																		;
 ;	Выполнил студент Бережных А. В.														;
@@ -18,12 +18,11 @@
 
 .DATA 
 
-		HIGH_BITS_MASK QWORD 0101010101010101h  ; Маска обнуления старшего бита каждого байта в 8-байтном блоке
-		MODULE_MASK	   QWORD 7171717171717171h  ; Неприводимый многочлен 1 71 без старшего бита
+		HIGH_BITS_MASK QWORD 8080808080808080h  ; Маска обнуления старшего бита каждого байта в 8-байтном блоке
+		MODULE_MASK	   QWORD 7171717171717171h  ; Блок из неприводимых многочленов 1 71 без старшего бита
 		ZERO_MASK	   QWORD 0FEFEFEFEFEFEFEFEh ; Маска обнуления младшего бита каждого байта в 8-байтном блоке
 
-REVERSE_X       QWORD 0101010101010101h ; x^(0)
-                QWORD 0B8B8B8B8B8B8B8B8h ; x^(-1)
+REVERSE_X       QWORD 0B8B8B8B8B8B8B8B8h ; x^(-1)
                 QWORD 5C5C5C5C5C5C5C5Ch ; x^(-2)
                 QWORD 2E2E2E2E2E2E2E2Eh ; x^(-3)
                 QWORD 1717171717171717h ; x^(-4)
@@ -51,7 +50,7 @@ REVERSE_X       QWORD 0101010101010101h ; x^(0)
                 QWORD 0E4E4E4E4E4E4E4E4h ; x^(-26)
                 QWORD 7272727272727272h ; x^(-27)
                 QWORD 3939393939393939h ; x^(-28)
-                QWORD 5252525252525252h ; x^(-29)
+                QWORD 0A4A4A4A4A4A4A4A4h ; x^(-29)
 
 REVERSE_XAB     QWORD 0D1D1D1D1D1D1D1D1h ; 1/(1-x^(-1))
                 QWORD 9E9E9E9E9E9E9E9Eh ; 1/(1-x^(-2))
@@ -60,7 +59,7 @@ REVERSE_XAB     QWORD 0D1D1D1D1D1D1D1D1h ; 1/(1-x^(-1))
                 QWORD 0E9E9E9E9E9E9E9E9h ; 1/(1-x^(-5))
                 QWORD 3D3D3D3D3D3D3D3Dh ; 1/(1-x^(-6))
                 QWORD 0AAAAAAAAAAAAAAAAh ; 1/(1-x^(-7))
-                QWORD 07B7B7B7B7B7B7B7Bh ; 1/(1-x^(-8))
+                QWORD 7B7B7B7B7B7B7B7Bh ; 1/(1-x^(-8))
                 QWORD 5454545454545454h ; 1/(1-x^(-9))
                 QWORD 1A1A1A1A1A1A1A1Ah ; 1/(1-x^(-10))
                 QWORD 1919191919191919h ; 1/(1-x^(-11))
@@ -81,7 +80,7 @@ REVERSE_XAB     QWORD 0D1D1D1D1D1D1D1D1h ; 1/(1-x^(-1))
                 QWORD 0FAFAFAFAFAFAFAFAh ; 1/(1-x^(-26))
                 QWORD 0EDEDEDEDEDEDEDEDh ; 1/(1-x^(-27))
                 QWORD 0F4F4F4F4F4F4F4F4h ; 1/(1-x^(-28))
-                QWORD 1313131313131313h ; 1/(1-x^(-29))
+                QWORD 0E7E7E7E7E7E7E7E7h ; 1/(1-x^(-29))
 
 .CODE
 
@@ -158,6 +157,7 @@ MUL_X PROC ;
 		OR RCX, RSI
 
 		MOV RSI, MODULE_MASK
+		MOV RDI, ZERO_MASK 
 
 		; Получаем маску, которая прибавляет порождающий многочлен 
 		; Только к тем многочленам из блока, в которых произошёл перенос
@@ -169,9 +169,8 @@ MUL_X PROC ;
 		SHL R13, 1
 
 		; Обнуляем лишние перенесённые разряды (младший бит в каждом многочлене)
-		MOV RSI, ZERO_MASK 
-		AND R12, RSI
-		AND R13, RSI
+		AND R12, RDI
+		AND R13, RDI
 
 		; Применяем полученную маску, 
 		; Тем самым прибавив порождающий многочлен только там, где нужно 
@@ -216,6 +215,7 @@ MUL_X PROC ;
 		OR RCX, RSI
 
 		MOV RSI, MODULE_MASK
+		MOV RDI, ZERO_MASK 
 
 		AND RBX, RSI
 		AND RCX, RSI
@@ -223,10 +223,8 @@ MUL_X PROC ;
 		SHL R14, 1
 		SHL R15, 1
 
-		MOV RSI, ZERO_MASK 
-
-		AND R14, RSI
-		AND R15, RSI
+		AND R14, RDI
+		AND R15, RDI
 
 		XOR R14, RBX
 		XOR R15, RCX
@@ -240,7 +238,7 @@ MUL_X ENDP
 ;   Множимый блок многочленов: R12, R13, R14, R15										;
 ;   Множитель                : RDX														;
 ;	Результат на			 : R12, R13, R14, R15										;
-;	Портит					 : RBX, RCX, RDI, RSI, RDX, RAX								;
+;	Портит					 : RAX, RBX, RCX, RDX, RDI, RSI								;
 ; -------------------------------------------------------------------------------------	;
 MUL_POLYNOM PROC
 
@@ -295,7 +293,7 @@ INNER_LOOP:
 		MOV	RDI, RBX
 		MOV	RSI, RBX
 
-		; применяем полученную маску к блоку множимомых многочленов
+		; применяем полученную маску к блоку множимых многочленов
 		AND	RBX, R8
 		AND	RCX, R9
 		AND	RDI, R10
@@ -311,20 +309,15 @@ INNER_LOOP:
 		XOR	R15, RSI
 
 		; сдвигаем множитель влево и обнуляем лишние перенесённые биты
+		MOV RBX, ZERO_MASK
 		SHL	RDX, 1	
-		AND	RDX, ZERO_MASK
+		AND	RDX, RBX
 
 		; переход к следующей итерации
 		SUB	RAX, 1
 		JG  INNER_LOOP
 
 ;----------Конец цикла умножения в столбик-----------
-	
-		; Записываем получившиеся суммы в результирующие регистры 
-		MOV R12, R8
-		MOV R13, R9
-		MOV R14, R10
-		MOV R15, R11
 
 		; Восстанавливаем R8-R11
 		POP R11
@@ -481,7 +474,7 @@ Recover PROC
 
 		MOV RAX, RDX	; в RAX лежит N 	
 		SUB RAX, R8		; в RAX лежит N-a
-		SUB RAX, 2		; в RAX лежит индекс в таблице REVERSE_X  = N - a - 2
+		SUB RAX, 2		; в RAX лежит индекс в таблице REVERSE_X  = N - a - 1
 	
 		SHL R9,  3		; вычисляем смещение в таблице REVERSE_XAB = индекс * 8  
 		SHL RAX, 3		; вычисляем смещение в таблице REVERSE_X   = индекс * 8  
@@ -508,65 +501,63 @@ Recover PROC
 		SHL RAX, 5		; в RAX лежит N*32
 		ADD RAX, RCX	; в RAX адрес P = RCX + N*32
 
-		; Сохраняем Q в R12-R15
-		MOV R12, [RAX + 32]
-		MOV R13, [RAX + 40]
-		MOV R14, [RAX + 48]
-		MOV R15, [RAX + 56]
-
 		; Сохраняем P в стек
 		PUSH [RAX     ]
 		PUSH [RAX + 8 ]
 		PUSH [RAX + 16]
 		PUSH [RAX + 24]
 
+		; Сохраняем Q в R12-R15
+		MOV R12, [RAX + 32]
+		MOV R13, [RAX + 40]
+		MOV R14, [RAX + 48]
+		MOV R15, [RAX + 56]
+
 		CALL CalculateSyndromes	; Вычисляем синдромы без утраченных дисков
 
 		; После вызова CalculateSyndromes:
 		; в RDX		будет лежать адрес P_sum (т.е. и адрес P = N*32)
+		; в RAX		будет лежать адрес Q_sum (т.е. и адрес Q = N*32)
 		; В R8--R11 будет лежать вычисленное значение P_sum
 
 		; Восстанавливаем из стека переданный в эту процедуру P
+		POP RSI
 		POP RDI
 		POP RCX
 		POP RBX
-		POP RAX
 
 		; Возвращаем их по адресу P 
 		; (Ибо нельзя неожиданно менять переданные по указателю данные!)
-		MOV [RDX	 ], RAX 
-		MOV [RDX + 8 ], RBX
-		MOV [RDX + 16], RCX
-		MOV [RDX + 24], RDI
+		MOV [RDX	 ], RBX
+		MOV [RDX + 8 ], RCX
+		MOV [RDX + 16], RDI
+		MOV [RDX + 24], RSI
 
 		; Вычисляем				   ~P_a,b = (P - P_sum)
 		; Поскольку + есть XOR, то ~P_a,b = (P_sum - P)
-		XOR R8,  RAX
-		XOR R9,  RBX
-		XOR R10, RCX
-		XOR R11, RDI
+		XOR R8,  RBX
+		XOR R9,  RCX
+		XOR R10, RDI
+		XOR R11, RSI
 
-		; Переходим к адресу Q
-		ADD RDX, 32 
-
-		; Копируем Q в RAX-RDI
-		MOV RAX, R11
-		MOV RBX, R12
-		MOV RCX, R13
-		MOV RDI, R14
+		; Копируем Q в RBX-RSI
+		MOV RBX, R11
+		MOV RCX, R12
+		MOV RDX, R13
+		MOV RSI, R14
 
 		; Вычисляем	~Q_a,b = (Q - Q_sum)
-		XOR R12, [RDX	  ]
-		XOR R13, [RDX + 8 ]
-		XOR R14, [RDX + 16]
-		XOR R15, [RDX + 24]
+		XOR R12, [RAX	  ]
+		XOR R13, [RAX + 8 ]
+		XOR R14, [RAX + 16]
+		XOR R15, [RAX + 24]
 
 		; Возвращаем переданное в процедуру Q по адресу Q 
 		; (Ибо нельзя неожиданно менять переданные по указателю данные!)
-		MOV [RDX	 ], RAX 
-		MOV [RDX + 8 ], RBX
-		MOV [RDX + 16], RCX
-		MOV [RDX + 24], RDI
+		MOV [RAX	 ], RBX 
+		MOV [RAX + 8 ], RCX
+		MOV [RAX + 16], RDI
+		MOV [RAX + 24], RSI
 
 		; Загружаем в RDX значение константы x^(a-N+1)
 		; По индексу из стека
@@ -594,8 +585,8 @@ Recover PROC
 		CALL MUL_POLYNOM
 
 		; Выгружаем адреса D_a и D_b
-		POP RSI
-		POP RDI
+		POP RSI		; тут адрес D_b
+		POP RDI		; тут адрес D_a
 
 		; Сохраняем результат в D_b
 		MOV [RSI	 ], R12
@@ -624,6 +615,6 @@ Recover PROC
 		POP R13
 		POP R12
 
-	ret
+		ret
 Recover ENDP
 END
