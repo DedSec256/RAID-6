@@ -23,60 +23,60 @@
 		ZERO_MASK	   QWORD 0FEFEFEFEFEFEFEFEh ; Маска обнуления младшего бита каждого байта в 8-байтном блоке
 
 REVERSE_X       QWORD 0B8B8B8B8B8B8B8B8h ; x^(-1)
-                QWORD 5C5C5C5C5C5C5C5Ch ; x^(-2)
-                QWORD 2E2E2E2E2E2E2E2Eh ; x^(-3)
-                QWORD 1717171717171717h ; x^(-4)
+                QWORD 5C5C5C5C5C5C5C5Ch  ; x^(-2)
+                QWORD 2E2E2E2E2E2E2E2Eh  ; x^(-3)
+                QWORD 1717171717171717h  ; x^(-4)
                 QWORD 0B3B3B3B3B3B3B3B3h ; x^(-5)
                 QWORD 0E1E1E1E1E1E1E1E1h ; x^(-6)
                 QWORD 0C8C8C8C8C8C8C8C8h ; x^(-7)
-                QWORD 6464646464646464h ; x^(-8)
-                QWORD 3232323232323232h ; x^(-9)
-                QWORD 1919191919191919h ; x^(-10)
+                QWORD 6464646464646464h  ; x^(-8)
+                QWORD 3232323232323232h  ; x^(-9)
+                QWORD 1919191919191919h  ; x^(-10)
                 QWORD 0B4B4B4B4B4B4B4B4h ; x^(-11)
-                QWORD 5A5A5A5A5A5A5A5Ah ; x^(-12)
-                QWORD 2D2D2D2D2D2D2D2Dh ; x^(-13)
+                QWORD 5A5A5A5A5A5A5A5Ah  ; x^(-12)
+                QWORD 2D2D2D2D2D2D2D2Dh  ; x^(-13)
                 QWORD 0AEAEAEAEAEAEAEAEh ; x^(-14)
-                QWORD 5757575757575757h ; x^(-15)
-                QWORD 9393939393939393h ; x^(-16)
+                QWORD 5757575757575757h  ; x^(-15)
+                QWORD 9393939393939393h  ; x^(-16)
                 QWORD 0F1F1F1F1F1F1F1F1h ; x^(-17)
                 QWORD 0C0C0C0C0C0C0C0C0h ; x^(-18)
-                QWORD 6060606060606060h ; x^(-19)
-                QWORD 3030303030303030h ; x^(-20)
-                QWORD 1818181818181818h ; x^(-21)
-                QWORD 0C0C0C0C0C0C0C0Ch ; x^(-22)
-                QWORD 0606060606060606h ; x^(-23)
-                QWORD 0303030303030303h ; x^(-24)
+                QWORD 6060606060606060h  ; x^(-19)
+                QWORD 3030303030303030h  ; x^(-20)
+                QWORD 1818181818181818h  ; x^(-21)
+                QWORD 0C0C0C0C0C0C0C0Ch  ; x^(-22)
+                QWORD 0606060606060606h  ; x^(-23)
+                QWORD 0303030303030303h  ; x^(-24)
                 QWORD 0B9B9B9B9B9B9B9B9h ; x^(-25)
                 QWORD 0E4E4E4E4E4E4E4E4h ; x^(-26)
-                QWORD 7272727272727272h ; x^(-27)
-                QWORD 3939393939393939h ; x^(-28)
+                QWORD 7272727272727272h  ; x^(-27)
+                QWORD 3939393939393939h  ; x^(-28)
                 QWORD 0A4A4A4A4A4A4A4A4h ; x^(-29)
 
 REVERSE_XAB     QWORD 0D1D1D1D1D1D1D1D1h ; 1/(1-x^(-1))
-                QWORD 9E9E9E9E9E9E9E9Eh ; 1/(1-x^(-2))
+                QWORD 9E9E9E9E9E9E9E9Eh  ; 1/(1-x^(-2))
                 QWORD 0ACACACACACACACACh ; 1/(1-x^(-3))
                 QWORD 0FDFDFDFDFDFDFDFDh ; 1/(1-x^(-4))
                 QWORD 0E9E9E9E9E9E9E9E9h ; 1/(1-x^(-5))
-                QWORD 3D3D3D3D3D3D3D3Dh ; 1/(1-x^(-6))
+                QWORD 3D3D3D3D3D3D3D3Dh  ; 1/(1-x^(-6))
                 QWORD 0AAAAAAAAAAAAAAAAh ; 1/(1-x^(-7))
-                QWORD 7B7B7B7B7B7B7B7Bh ; 1/(1-x^(-8))
-                QWORD 5454545454545454h ; 1/(1-x^(-9))
-                QWORD 1A1A1A1A1A1A1A1Ah ; 1/(1-x^(-10))
-                QWORD 1919191919191919h ; 1/(1-x^(-11))
-                QWORD 9595959595959595h ; 1/(1-x^(-12))
+                QWORD 7B7B7B7B7B7B7B7Bh  ; 1/(1-x^(-8))
+                QWORD 5454545454545454h  ; 1/(1-x^(-9))
+                QWORD 1A1A1A1A1A1A1A1Ah  ; 1/(1-x^(-10))
+                QWORD 1919191919191919h  ; 1/(1-x^(-11))
+                QWORD 9595959595959595h  ; 1/(1-x^(-12))
                 QWORD 0C6C6C6C6C6C6C6C6h ; 1/(1-x^(-13))
-                QWORD 2929292929292929h ; 1/(1-x^(-14))
-                QWORD 5E5E5E5E5E5E5E5Eh ; 1/(1-x^(-15))
+                QWORD 2929292929292929h  ; 1/(1-x^(-14))
+                QWORD 5E5E5E5E5E5E5E5Eh  ; 1/(1-x^(-15))
                 QWORD 0B7B7B7B7B7B7B7B7h ; 1/(1-x^(-16))
-                QWORD 4C4C4C4C4C4C4C4Ch ; 1/(1-x^(-17))
-                QWORD 5757575757575757h ; 1/(1-x^(-18))
+                QWORD 4C4C4C4C4C4C4C4Ch  ; 1/(1-x^(-17))
+                QWORD 5757575757575757h  ; 1/(1-x^(-18))
                 QWORD 0EBEBEBEBEBEBEBEBh ; 1/(1-x^(-19))
-                QWORD 3535353535353535h ; 1/(1-x^(-20))
+                QWORD 3535353535353535h  ; 1/(1-x^(-20))
                 QWORD 0B5B5B5B5B5B5B5B5h ; 1/(1-x^(-21))
-                QWORD 3030303030303030h ; 1/(1-x^(-22))
-                QWORD 8686868686868686h ; 1/(1-x^(-23))
+                QWORD 3030303030303030h  ; 1/(1-x^(-22))
+                QWORD 8686868686868686h  ; 1/(1-x^(-23))
                 QWORD 0B8B8B8B8B8B8B8B8h ; 1/(1-x^(-24))
-                QWORD 0202020202020202h ; 1/(1-x^(-25))
+                QWORD 0202020202020202h  ; 1/(1-x^(-25))
                 QWORD 0FAFAFAFAFAFAFAFAh ; 1/(1-x^(-26))
                 QWORD 0EDEDEDEDEDEDEDEDh ; 1/(1-x^(-27))
                 QWORD 0F4F4F4F4F4F4F4F4h ; 1/(1-x^(-28))
@@ -245,7 +245,7 @@ MUL_POLYNOM PROC
 		MOV RAX, 8		; Cчётчик
 
 		; При вызове из Recover тут будет сохранён ~P_a,b
-		; Который нужен после выхода этой процедуры, поэтому сохраняем регисты
+		; Который нужен после выхода этой процедуры, поэтому сохраняем регистры
 		PUSH R8
 		PUSH R9
 		PUSH R10
@@ -405,17 +405,18 @@ INNER_LOOP:
 		CMP RAX, RDX
 		JNE INNER_LOOP
 
+		; На этом шаге RAX = адресу P
+		; Переходим в RAX к адресу Q
+		ADD RAX, 32
+
 ;-----------Конец цикла вычислений P и Q-----------
 
 		; На этом шаге RAX = адресу P
 		; Записываем вычисленное P
-		MOV [RAX	 ], R8
-		MOV [RAX + 8 ], R9
-		MOV [RAX + 16], R10
-		MOV [RAX + 24], R11
-
-		; Переходим к адресу Q
-		ADD RAX, 32
+		MOV [RDX	 ], R8
+		MOV [RDX + 8 ], R9
+		MOV [RDX + 16], R10
+		MOV [RDX + 24], R11
 
 		; Записываем вычисленное Q
 		MOV [RAX 	 ], R12
@@ -469,12 +470,12 @@ Recover PROC
 		PUSH RDI		; записываем адрес D_a
 		PUSH RSI		; записываем адрем D_b
 
-		SUB R9,  R8		; вычисляем значение b-a -> индекс в таблице REVERSE_XAB
+		SUB R9,  R8		; вычисляем значение b-a
 		SUB R9,  1		; в R9 лежит индекс в таблице REVERSE_XAB = b - a - 1
 
 		MOV RAX, RDX	; в RAX лежит N 	
 		SUB RAX, R8		; в RAX лежит N-a
-		SUB RAX, 2		; в RAX лежит индекс в таблице REVERSE_X  = N - a - 1
+		SUB RAX, 2		; в RAX лежит индекс в таблице REVERSE_X  = N - a - 2
 	
 		SHL R9,  3		; вычисляем смещение в таблице REVERSE_XAB = индекс * 8  
 		SHL RAX, 3		; вычисляем смещение в таблице REVERSE_X   = индекс * 8  
@@ -513,7 +514,7 @@ Recover PROC
 		MOV R14, [RAX + 48]
 		MOV R15, [RAX + 56]
 
-		CALL CalculateSyndromes	; Вычисляем синдромы без утраченных дисков
+		CALL CalculateSyndromes	; Вычисляем синдромы P_sum и Q_sum без утраченных дисков
 
 		; После вызова CalculateSyndromes:
 		; в RDX		будет лежать адрес P_sum (т.е. и адрес P = N*32)
@@ -541,10 +542,10 @@ Recover PROC
 		XOR R11, RSI
 
 		; Копируем Q в RBX-RSI
-		MOV RBX, R11
-		MOV RCX, R12
-		MOV RDX, R13
-		MOV RSI, R14
+		MOV RBX, R12
+		MOV RCX, R13
+		MOV RDI, R14
+		MOV RSI, R15
 
 		; Вычисляем	~Q_a,b = (Q - Q_sum)
 		XOR R12, [RAX	  ]
